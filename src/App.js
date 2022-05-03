@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { GitProfile } from "./components/GitProfile";
 import { InputForm } from "./components/InputForm";
+import { Reset } from "./components/Reset";
 
 function App() {
   const [gitUsername, setGitUsername] = useState("");
@@ -22,6 +23,10 @@ function App() {
     .catch((error)=>console.log(error));
   }
 
+  const resetProfile = () => {
+    setGitProfile(null);
+  }
+
   useEffect(()=>{
     console.log(gitProfile);
   },[gitProfile]);
@@ -29,7 +34,7 @@ function App() {
   return (
     <div>
       {gitProfile === null ? <InputForm onChange={handleNameChange} onSubmit={submitGitName}/> : <GitProfile profile={gitProfile}/>}
-      
+      {gitProfile !== null ? <Reset reset={resetProfile}/> : null}
     </div>
   );
 }
